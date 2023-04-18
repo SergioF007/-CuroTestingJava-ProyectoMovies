@@ -18,7 +18,6 @@ import static org.junit.Assert.*;
 public class MovieServiceTest {
 
     private MovieService movieService;
-
     @Before
     public void setUp() throws Exception {
 
@@ -38,31 +37,31 @@ public class MovieServiceTest {
 
         );
 
-        MovieService movieService = new MovieService(movieRepository);
-
-
+        movieService = new MovieService(movieRepository);
     }
 
     @Test
     public void return_movies_by_genre() {
 
 
-
         Collection<Movie> movies =  movieService.findMoviesByGenre(Genre.TRILLER);
 
-        List<Integer> movieIds = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
+        List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
 
         assertThat(movieIds, CoreMatchers.is(Arrays.asList(2, 3)) );
+
 
     }
 
     @Test
     public void return_movies_by_legth() {
 
-        Collection<Movie> movies = movieService.findMoviesByLength(120);
 
+        Collection<Movie> movies = movieService.findMoviesByLength(113);
 
+        List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
 
+        assertThat(movieIds, CoreMatchers.is(Arrays.asList(2, 3, 4, 5)) );
 
     }
 }
