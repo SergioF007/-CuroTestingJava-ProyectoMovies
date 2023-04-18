@@ -46,11 +46,16 @@ public class MovieServiceTest {
 
         Collection<Movie> movies =  movieService.findMoviesByGenre(Genre.TRILLER);
 
-        List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
+        List<Integer> movieIds = getMovieIds(movies);
 
         assertThat(movieIds, CoreMatchers.is(Arrays.asList(2, 3)) );
 
 
+    }
+
+    private static List<Integer> getMovieIds(Collection<Movie> movies) {
+        List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
+        return movieIds;
     }
 
     @Test
@@ -59,7 +64,7 @@ public class MovieServiceTest {
 
         Collection<Movie> movies = movieService.findMoviesByLength(113);
 
-        List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
+        List<Integer> movieIds = getMovieIds(movies);
 
         assertThat(movieIds, CoreMatchers.is(Arrays.asList(2, 3, 4, 5)) );
 
