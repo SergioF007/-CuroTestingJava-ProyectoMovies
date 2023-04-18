@@ -23,4 +23,14 @@ public class MovieService {
         return movieRepository.findAll().stream()
                 .filter(movie -> movie.getGenre() == genre).collect(Collectors.toList());
     }
+
+    // find Movies By Length - buscar películas por duración
+
+    public Collection<Movie> findMoviesByLength(int length) {
+
+        return movieRepository.findAll().stream()
+                .filter(movie -> movie.getMinutes() <=  length).collect(Collectors.toList());
+
+    }
+
 }

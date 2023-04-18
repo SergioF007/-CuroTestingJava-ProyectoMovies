@@ -1,6 +1,7 @@
 package org.platzi.javatests.service;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.platzi.javatests.data.MovieRepository;
@@ -16,9 +17,10 @@ import static org.junit.Assert.*;
 
 public class MovieServiceTest {
 
+    private MovieService movieService;
 
-    @Test
-    public void return_movies_by_genre() {
+    @Before
+    public void setUp() throws Exception {
 
         //Vamos a simular la respuesta de la clase MovieRepository
         // por lo que usamos Mockito
@@ -38,6 +40,14 @@ public class MovieServiceTest {
 
         MovieService movieService = new MovieService(movieRepository);
 
+
+    }
+
+    @Test
+    public void return_movies_by_genre() {
+
+
+
         Collection<Movie> movies =  movieService.findMoviesByGenre(Genre.TRILLER);
 
         List<Integer> movieIds = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
@@ -46,4 +56,13 @@ public class MovieServiceTest {
 
     }
 
+    @Test
+    public void return_movies_by_legth() {
+
+        Collection<Movie> movies = movieService.findMoviesByLength(120);
+
+
+
+
+    }
 }
