@@ -5,6 +5,7 @@ import org.platzi.javatests.model.Genre;
 import org.platzi.javatests.model.Movie;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class MovieService {
 
@@ -18,8 +19,8 @@ public class MovieService {
     //peliculas por genero - por lo que me va a devolver, es una coleccion
     public Collection<Movie> findMoviesByGenre(Genre genre) {
 
-        Collection<Movie> allMovies = movieRepository.findAll();
-
-        return allMovies;
+        // aplicque refacto Inline
+        return movieRepository.findAll().stream()
+                .filter(movie -> movie.getGenre() == genre).collect(Collectors.toList());
     }
 }
