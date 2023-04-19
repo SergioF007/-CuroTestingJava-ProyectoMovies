@@ -43,13 +43,16 @@ public class MovieServiceTest {
     @Test
     public void return_movies_by_genre() {
 
-
         Collection<Movie> movies =  movieService.findMoviesByGenre(Genre.TRILLER);
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2, 3)) );
 
-        List<Integer> movieIds = getMovieIds(movies);
+    }
 
-        assertThat(movieIds, CoreMatchers.is(Arrays.asList(2, 3)) );
+    @Test
+    public void return_movies_by_legth() {
 
+        Collection<Movie> movies = movieService.findMoviesByLength(113);
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2, 3, 4, 5)) );
 
     }
 
@@ -58,15 +61,4 @@ public class MovieServiceTest {
         return movieIds;
     }
 
-    @Test
-    public void return_movies_by_legth() {
-
-
-        Collection<Movie> movies = movieService.findMoviesByLength(113);
-
-        List<Integer> movieIds = getMovieIds(movies);
-
-        assertThat(movieIds, CoreMatchers.is(Arrays.asList(2, 3, 4, 5)) );
-
-    }
 }
