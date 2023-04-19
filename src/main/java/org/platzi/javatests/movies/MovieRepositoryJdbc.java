@@ -38,14 +38,10 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     }
 
-    private static RowMapper<Movie> movieMapper = new RowMapper<Movie>() {
-        @Override
-        public Movie mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Movie(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("minutes"),
-                    Genre.valueOf(rs.getString("genre")));
-        }
-    };
+    private static RowMapper<Movie> movieMapper = (rs, rowNum) ->
+            new Movie(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getInt("minutes"),
+                Genre.valueOf(rs.getString("genre")));
 }
