@@ -28,8 +28,8 @@ public class MovieServiceTest {
         Mockito.when(movieRepository.findAll()).thenReturn(
                 Arrays.asList(
                         new Movie(1, "Dark Knight", 152, Genre.ACTION),
-                        new Movie(2, "Mamento", 113, Genre.TRILLER),
-                        new Movie(3, "Super 8", 112, Genre.TRILLER),
+                        new Movie(2, "Mamento", 113, Genre.THRILLER),
+                        new Movie(3, "Super 8", 112, Genre.THRILLER),
                         new Movie(4, "Scream", 111, Genre.HORROR),
                         new Movie(5, "Home Alone", 103, Genre.COMEDY)
 
@@ -43,7 +43,7 @@ public class MovieServiceTest {
     @Test
     public void return_movies_by_genre() {
 
-        Collection<Movie> movies =  movieService.findMoviesByGenre(Genre.TRILLER);
+        Collection<Movie> movies =  movieService.findMoviesByGenre(Genre.THRILLER);
         assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2, 3)) );
 
     }

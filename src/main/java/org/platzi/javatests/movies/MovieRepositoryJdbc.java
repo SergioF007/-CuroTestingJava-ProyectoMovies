@@ -28,7 +28,7 @@ public class MovieRepositoryJdbc implements MovieRepository {
     public Collection<Movie> findAll() {
 
 
-        // para que me transforma cada fila en la base de datos en un objeto movie
+        // ejcuta la consilta en la base de datos y esta transformando cada fila en un objeto movie
 
         return jdbcTemplate.query("SELECT * FROM movies", movieMapper);
     }
@@ -38,6 +38,8 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     }
 
+    // Transformamos cada fila en un Objetos Movie
+    // rs, representa la fila actual de la base de datos
     private static RowMapper<Movie> movieMapper = (rs, rowNum) ->
             new Movie(
                 rs.getInt("id"),
