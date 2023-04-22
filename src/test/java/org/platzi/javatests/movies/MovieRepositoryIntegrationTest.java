@@ -52,9 +52,9 @@ public class MovieRepositoryIntegrationTest {
         Collection<Movie> movies = movieRepositoryJdbc.findAll();
         // Compruebo que las peliculas obtenidas son las correctas
         assertThat(movies, CoreMatchers.is(Arrays.asList(
-                new Movie(1,"Dark Knight", 152, Genre.ACTION ),
-                new Movie(2,"Memento", 113, Genre.THRILLER ),
-                new Movie(3,"Matrix", 136, Genre.ACTION)
+                new Movie(1,"Dark Knight", 152, "Director1", Genre.ACTION ),
+                new Movie(2,"Memento", 113, "Director1", Genre.THRILLER ),
+                new Movie(3,"Matrix", 136, "Director2", Genre.ACTION)
         )));
     }
 
@@ -62,10 +62,38 @@ public class MovieRepositoryIntegrationTest {
     @Test
     public void load_movie_by_id() {
 
-        Movie movie = movieRepositoryJdbc.findById(2);
+        Movie movie = movieRepositoryJdbc.findById(3);
 
         // lo comparo con lo que espero que me devuleva
-        assertThat(movie, CoreMatchers.is(new Movie(2, "Memento", 113, Genre.THRILLER)));
+        assertThat(movie, CoreMatchers.is(new Movie(3,"Matrix", 136, "Director2", Genre.ACTION)));
+
+    }
+
+    // encontrar un a pelicula por name
+    @Test
+    public void load_movie_by_name() {
+
+        Collection<Movie> movie = movieRepositoryJdbc.findByName("M");
+
+        // lo comparo con lo que espero que me devuleva
+        assertThat(movie, CoreMatchers.is(Arrays.asList(
+                new Movie(2,"Memento", 113, "Director1", Genre.THRILLER),
+                new Movie(3,"Matrix", 136, "Director2", Genre.ACTION)
+        )));
+
+    }
+
+    // encontrar un a pelicula por director
+    @Test
+    public void load_movie_by_director() {
+
+        Collection<Movie> movie = movieRepositoryJdbc.findByDirector("Director1");
+
+        // lo comparo con lo que espero que me devuleva
+        assertThat(movie, CoreMatchers.is(Arrays.asList(
+                new Movie(1,"Dark Knight", 152, "Director1", Genre.ACTION ),
+                new Movie(2,"Memento", 113, "Director1", Genre.THRILLER)
+        )));
 
     }
 
@@ -73,14 +101,14 @@ public class MovieRepositoryIntegrationTest {
     @Test
     public void insert_a_movie() {
 
-        Movie movie = new Movie("Super 8", 112, Genre.THRILLER);
+        Movie movie = new Movie("Super 8", 112, "Director 3", Genre.THRILLER);
 
         movieRepositoryJdbc.saveOrUpdate(movie);
 
         //recupero la pelicula de la base de datos, en este caso seria la del id = 4
         Movie movieFromBD = movieRepositoryJdbc.findById(4);
 
-        assertThat(movieFromBD, CoreMatchers.is(new Movie(4,"Super 8", 112, Genre.THRILLER)));
+        assertThat(movieFromBD, CoreMatchers.is(new Movie(4,"Super 8", 112, "Director 3", Genre.THRILLER)));
     }
 
     // no implementadomos este metodo devido a que el codigo que simula la BD

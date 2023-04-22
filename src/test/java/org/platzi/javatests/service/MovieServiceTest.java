@@ -27,11 +27,11 @@ public class MovieServiceTest {
 
         Mockito.when(movieRepository.findAll()).thenReturn(
                 Arrays.asList(
-                        new Movie(1, "Dark Knight", 152, Genre.ACTION),
-                        new Movie(2, "Mamento", 113, Genre.THRILLER),
-                        new Movie(3, "Super 8", 112, Genre.THRILLER),
-                        new Movie(4, "Scream", 111, Genre.HORROR),
-                        new Movie(5, "Home Alone", 103, Genre.COMEDY)
+                        new Movie(1, "Dark Knight", 152, "Director1", Genre.ACTION),
+                        new Movie(2, "Mamento", 113, "Director1", Genre.THRILLER),
+                        new Movie(3, "Super 8", 112,"Director2", Genre.THRILLER),
+                        new Movie(4, "Scream", 111, "Director3", Genre.HORROR),
+                        new Movie(5, "Home Alone", 103, "Director3", Genre.COMEDY)
 
                 )
 

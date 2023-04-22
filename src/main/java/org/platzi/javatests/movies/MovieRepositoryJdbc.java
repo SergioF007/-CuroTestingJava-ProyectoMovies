@@ -5,10 +5,7 @@ import org.platzi.javatests.model.Movie;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.Objects;
 
 public class MovieRepositoryJdbc implements MovieRepository {
 
@@ -28,6 +25,13 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
         return jdbcTemplate.queryForObject("SELECT * FROM movies WHERE id = ?", args, movieMapper);
     }
+
+    @Override
+    public Collection<Movie> findByName(String name) {
+
+        String[] args = {name.toLowerCase() + "%"};
+        return jdbcTemplate.query("SELECT * FROM movies WHERE LOWER(name) LIKE ?", args, movieMapper);
+    }
     // metodo para obtener los movies deacuerdo
     // query que vamos a implementar con la clase JDBC
     @Override
@@ -40,8 +44,8 @@ public class MovieRepositoryJdbc implements MovieRepository {
     @Override
     public void saveOrUpdate(Movie movie) {
 
-        jdbcTemplate.update("INSERT INTO movies (name, minutes, genre) VALUES(?, ?, ?)",
-                movie.getName(), movie.getMinutes(), movie.getGenre().toString());
+        jdbcTemplate.update("INSERT INTO movies (name, minutes, director, genre) VALUES(?, ?, ?, ?)",
+                movie.getName(), movie.getMinutes(), movie.getDirector(), movie.getGenre().toString());
 
     }
 
@@ -52,5 +56,13 @@ public class MovieRepositoryJdbc implements MovieRepository {
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getInt("minutes"),
+                rs.getString("director"),
                 Genre.valueOf(rs.getString("genre")));
+
+    public Collection<Movie> findByDirector(String name) {
+
+        String[] args = {name.toLowerCase() + "%"};
+        return jdbcTemplate.query("SELECT * FROM movies WHERE LOWER(director) LIKE ?", args, movieMapper);
+
+    }
 }
