@@ -56,6 +56,18 @@ public class MovieServiceTest {
 
     }
 
+
+    // encontrar un a pelicula por minutos y genero
+    // probando el metodo de la clase movieServise: encontrar películas por plantilla
+    @Test
+    public void return_movie_by_minutes_and_genre() {
+
+        // lo comparo con lo que espero que me devuleva
+        assertThat(getMovieIds(movieService.findMoviesByTemplate(new Movie(null, 120, null, Genre.THRILLER))), CoreMatchers.is(Arrays.asList(2,3)));
+
+    }
+
+
     private static List<Integer> getMovieIds(Collection<Movie> movies) {
         List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
         return movieIds;
