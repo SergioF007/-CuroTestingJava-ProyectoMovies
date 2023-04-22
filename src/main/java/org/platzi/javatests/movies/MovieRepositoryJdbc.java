@@ -40,6 +40,9 @@ public class MovieRepositoryJdbc implements MovieRepository {
     @Override
     public void saveOrUpdate(Movie movie) {
 
+        jdbcTemplate.update("INSERT INTO movies (name, minutes, genre) VALUES(?, ?, ?)",
+                movie.getName(), movie.getMinutes(), movie.getGenre().toString());
+
     }
 
     // Transformamos cada fila en un Objetos Movie

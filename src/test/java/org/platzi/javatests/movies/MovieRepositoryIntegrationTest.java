@@ -69,6 +69,19 @@ public class MovieRepositoryIntegrationTest {
 
     }
 
+    //Insetar una pelicula
+    @Test
+    public void insert_a_movie() {
+
+        Movie movie = new Movie("Super 8", 112, Genre.THRILLER);
+
+        movieRepositoryJdbc.saveOrUpdate(movie);
+
+        //recupero la pelicula de la base de datos, en este caso seria la del id = 4
+        Movie movieFromBD = movieRepositoryJdbc.findById(4);
+
+        assertThat(movieFromBD, CoreMatchers.is(new Movie(4,"Super 8", 112, Genre.THRILLER)));
+    }
 
     // no implementadomos este metodo devido a que el codigo que simula la BD
     // tiene incorporado el drop, por eso a nostros nos corrio el la prueba sin necesidad de esto
